@@ -1,0 +1,121 @@
+# Are Market Neutral Funds Really Market Neutral — Detailed Quantitative Research Notes
+
+## Bibliographic Header
+| Field | Detail |
+|------|--------|
+| Title | Are "Market Neutral" Hedge Funds Really Market Neutral? |
+| Author | Andrew J. Patton (University of Oxford; Oxford-Man Institute) |
+| Versions | First 11 Mar 2004; this version 10 Oct 2007 |
+| Data | HFR + TASS monthly net-of-fee returns; live+dead; Apr 1993–Apr 2003; 1,423 funds in five styles |
+| Market proxies | S&P 500 (primary), MSCI World / Europe robustness |
+| Original PDF | `[Patton] - Are Market Neutral Funds Really Market Neutral 2007.pdf` |
+| Core idea | Five neutrality concepts beyond beta/correlation; ~1/4 of self-described market-neutral funds fail joint neutrality tests; still the *most* neutral style |
+
+## Problem / Motivation
+"Market neutral" is a selling point and a legal/contractual concept (Weyerhaeuser vs Geewax Terker: \$8m settlement). Dollar neutrality ≠ risk neutrality. Nonlinear hedge-fund payoffs (Fung–Hsieh lookbacks; Mitchell–Pulvino; Agarwal–Naik piecewise) break linear beta. Patton proposes a battery of neutrality notions analogous to option "Greeks," with alternatives shaped by risk-averse investors' preferences (dislike positive co-movement especially on the downside).
+
+## Data (Tables 1–2)
+Styles: market neutral (MN), equity hedge (EH), equity non-hedge (ENH), event driven (ED), funds of funds (FoF).
+
+Median fund monthly stats (Table 1):
+| | MN | EH | ENH | ED | FoF | SPX |
+|--|---:|---:|----:|---:|----:|----:|
+| Mean % | 0.68 | 1.00 | 1.05 | 0.86 | 0.69 | 0.85 |
+| Std % | 2.35 | 4.35 | 5.89 | 2.52 | 1.88 | 4.52 |
+| Skew | 0.02 | 0.20 | 0.04 | −0.17 | −0.03 | −0.54 |
+| Kurt | 3.80 | 3.96 | 4.02 | 4.56 | 4.23 | 3.26 |
+| AC1 | 0.06 | 0.08 | 0.06 | **0.19** | **0.19** | −0.03 |
+| Med T | 42 | 44 | 79 | 58 | 40 | 121 |
+| #funds (≥12 obs) | 197 | 514 | 79 | 102 | 531 | — |
+
+Serial correlation handled via Getmansky–Lo–Makarov **MA(2)** filter; estimation error in MA absorbed in bootstrap. Min obs thresholds: 18 (corr), 24 (mean/var), 66 (VaR), 100 (tail).
+
+## Neutrality Concepts and Results for MN Funds
+
+### Correlation neutrality
+Mean corr(MN, SPX)=0.025; 5–95% quantile [−0.52, 0.53]. **28.1%** significant corr at 5%; **23.4%** significant *positive* corr. Joint critical proportion (bootstrap, dependence across funds): 18.75% > Binomial-independence 7.74%. Collection of MN funds rejects joint correlation neutrality.
+
+### Mean neutrality
+$E[r_i|r_m]=E[r_i]$. Test via 3rd-order polynomial $r_i=a_0+a_1 r_m+a_2 r_m^2+a_3 r_m^3+e$; Wald $a_1=a_2=a_3=0$. Reject for **28.0%** of MN funds (n≥24).
+
+**Downside mean neutrality:** $E[\partial\mu_i/\partial r_m\,|\,r_m\le0]\le0$. Reject for **20.0%**.
+
+### Variance neutrality
+After controlling for mean non-neutrality, polynomial/ARCH conditional variance. Reject only **4.0%** (≈ size). Downside variance neutrality also ~4%. Little evidence of variance non-neutrality given short samples.
+
+### VaR neutrality
+Christoffersen-style: Pr(fund VaR breach | market VaR breach)=unconditional. 10% VaR; n≥66 (59 MN funds). **0%** rejects after mean/var controls. Downside VaR: also 0%. Without mean/var controls, ~13.8% reject—showing mean non-neutrality drives apparent VaR dependence.
+
+### Tail neutrality
+Lower tail dependence $\lambda_L=\lim_{q\to0}\Pr(F_i<q|F_m<q)=0$. Quintos (2003) EVT test. Only 15/28 long-history funds completable; **1/15** rejects. Low power / survivorship caveat.
+
+### Complete neutrality
+Independence / independence copula. Spearman rank corr mean 0.018; **28.1%** significant; **22.8%** significant positive. Conditional on mean (mean+var) neutrality, significant rank corr falls to 8.6% (5.2%)—**mean non-neutrality is the primary channel**.
+
+Epstein–Tanny concordance / correlation aversion: any risk-averse long-only investor dislikes CITs away from independence; Spearman respects the concordance order.
+
+### Joint test (Section 3.7)
+Bootstrap Westfall–Young-style: count #tests failed under imposed independence; compare to 95th percentile. **29.2%** fail joint general neutrality; **20.5%** fail joint downside neutrality. Both exceed 18.75% critical proportion ⇒ MN category as a whole is significantly non-neutral. Yet **HFR Equity Market Neutral index** passes all tests (p≈0.14)—individual exposures offset in the portfolio.
+
+## Neutral vs Non-Neutral MN Funds (Table 3)
+Non-neutral portfolio (failed downside joint test): older (75.7 vs 55.4 months), larger AUM (\$79.3m vs \$57.5m), higher mean (1.19% vs 0.79%), higher vol (1.78% vs 0.74%), corr with market **0.78 vs −0.08**. After weak markets (6m below-avg), corr 0.82 vs −0.30. Non-neutral book behaves like **Equity Hedge** after controlling for market (robust t=5.15 on EH index).
+
+## Cross-Style Comparison (Table 4) — Main Empirical Result
+Proportion failing joint neutrality (Panel I):
+| Style | Joint fail |
+|-------|----------:|
+| Market neutral | **29.2%*** |
+| Funds of funds | 49.7%* |
+| Equity hedge | 53.9%* |
+| Event driven | 61.1%* |
+| Equity non-hedge | **85.7%*** |
+
+Downside joint: MN 20.5%, FoF 53.8%, EH 56.2%, ED 70.0%, ENH 84.4%. Variance/VaR/tail tests mostly near size except ENH tail 25%.
+
+**Conclusion:** MN funds are not all neutral, but are the most neutral style.
+
+## Robustness (Tables 5–7)
+- MSCI World / UK investor (GBP): similar rejection rates.
+- Drop last 6 months (end-game): similar.
+- Drop first 12 months (backfill): similar.
+- MA(0) / MA(4) vs MA(2): similar for MN (low AC).
+- Live vs dead: live slightly higher non-neutrality; mean-downside failures almost all live.
+- Age vs correlation (Figure 1): positive relation—older funds more market-correlated (style drift and/or power).
+- Subsamples 1993–98 vs 1999–2003 on full-history funds: generally **more non-neutrality in the bull first half** for 4/5 styles (except ENH). Neutrality time-varies with market conditions.
+
+## Limitations
+- Short histories ⇒ low power (true non-neutrality rate may be higher).
+- Single market index (necessary condition only).
+- VaR/tail tests select survivors.
+- Unconditional tests average over dynamic strategies.
+- Self-reported styles.
+
+## Practical Takeaways for a Quant Investor / Allocator
+1. **Do not trust the style box**—run Patton's battery (at least correlation, polynomial mean, Spearman).
+2. ~25% of MN funds are meaningfully non-neutral; prefer the MN **index** or a diversified MN FoF for neutrality.
+3. Non-neutral "MN" funds look like equity hedge—pay fees accordingly / hedge the beta.
+4. Focus on **downside** mean neutrality if you are long equities already.
+5. MA(2)-filter returns before measuring dependence (Getmansky et al.).
+6. Older/larger MN funds warrant extra scrutiny for style drift.
+7. Portable alpha: measure residual dependence after your existing beta hedges.
+
+## Equation Sheet
+$$
+\begin{aligned}
+&E[r_i|r_m]=E[r_i]\quad\text{(mean neutrality)},\\
+&r_i=a_0+a_1 r_m+a_2 r_m^2+a_3 r_m^3+e,\\
+&V[r_i-\mu_i(r_m)|r_m]=V[\cdot]\quad\text{(variance neutrality)},\\
+&\lambda_L=0\quad\text{(tail neutrality)},\\
+&c(u,v)=1\quad\text{(complete neutrality / independence copula)}.
+\end{aligned}
+$$
+
+## Expanded operational notes (Patton)
+
+### Note 1
+Allocator note 1: when diligencing a market-neutral manager, download monthly returns (live history), apply MA(2), regress on polynomial in SPX, test Spearman, and bootstrap. Compare to HFR MN index. Check whether 'neutrality' holds after 2000 or only in marketing years. Measure beta in down months separately. If AUM >\$75m and age >6 years, demand explicit factor exposures (Fung–Hsieh seven-factor plus equity). For FoF of MN managers, rely on offsetting exposures but still monitor index-level neutrality quarterly. Link to Avellaneda: a PCA residual MR book should pass Patton mean neutrality vs SPX if defactored correctly—use Patton tests as a QA gate on your own stat-arb book.
+
+## Extended Technical Elaborations
+
+### Elaboration 1
+Elaboration 1 on Patton (2007) market-neutrality tests. The paper's central empirical claim is that approximately one-quarter of self-described equity market-neutral hedge funds exhibit statistically significant market dependence at the 5% level under a joint bootstrap test, with 29.2% failing the general joint test and 20.5% failing the downside-focused joint test—both above the 18.75% critical proportion that accounts for cross-fund dependence. Mean/correlation channels dominate: 28% fail correlation or polynomial-mean neutrality, while variance, VaR, and tail tests mostly sit near nominal size after mean controls (power is limited by short histories). Spearman complete-neutrality failures (~28%) collapse to ~5–9% after conditioning on mean (and variance), confirming that nonlinear mean dependence—not exotic tail copulas—is the main violation for MN funds in 1993–2003. The HFR Equity Market Neutral *index* nonetheless passes all tests (p-values ≥0.14), so diversification across MN managers can restore neutrality even when individuals fail. Non-neutral MN funds are older, larger, higher-returning, higher-vol, and correlate 0.78 with the S&P 500 (vs −0.08 for neutral MN); after market controls they load on Equity Hedge. Cross-style ranking of joint failure rates—MN 29%, FoF 50%, EH 54%, ED 61%, ENH 86%—is the allocator's takeaway table. Robustness to MSCI World, GBP perspective, backfill trimming, end-game trimming, and MA order is strong. Subsample evidence shows more non-neutrality in the 1993–98 bull than in 1999–2003 for most styles among full-history funds, and Figure 1 documents that measured correlation rises with fund age. Methodology: stationary block bootstrap (Politis–Romano) with Politis–White block lengths (avg ~2.4), 1000 reps, separate resampling of fund and market to impose the null; MA(2) estimated inside each bootstrap path; joint test uses Westfall–Young-style count of failed tests. For a quant running market-neutral books (e.g. Avellaneda-style residual MR), Patton's mean-neutrality polynomial and Spearman tests are excellent QA gates against accidental market leakage. For allocators, never accept style labels without these tests; prefer diversified MN exposure; scrutinize older large 'MN' funds for equity-hedge behavior; and measure downside mean slopes separately from full-sample betas.

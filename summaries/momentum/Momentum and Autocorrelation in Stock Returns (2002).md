@@ -1,0 +1,207 @@
+# Momentum and Autocorrelation in Stock Returns
+**Author:** Jonathan Lewellen
+**Year:** 2002
+**Journal/Venue:** Review of Financial Studies
+
+## Problem statement
+
+The standard behavioral reading of momentum is that investors underreact to firm-specific news. Lewellen asks a sharper question: **if that is true, why does momentum show up just as strongly in highly diversified size and book-to-market portfolios, and how can momentum coexist with negative portfolio autocorrelation?**
+
+So the paper is not just "more momentum evidence." It is a challenge to the view that momentum is mainly firm-specific underreaction.
+
+## Approach (short)
+
+The paper does two things.
+
+First, it measures momentum not only in individual stocks and industries but also in:
+
+- size portfolios,
+- book-to-market portfolios,
+- double-sorted size/BM portfolios.
+
+The strategy uses the linear Lo-MacKinlay weighting rule
+
+$$
+w_{i,t}=\frac{1}{N}\left(r_{i,t-1}^k-r_{m,t-1}^k\right),
+$$
+
+where weights are proportional to the asset's lagged market-adjusted return.
+
+Second, it studies the autocorrelation and cross-serial correlation structure of these portfolio returns and decomposes expected momentum profit as
+
+$$
+E[\pi_{t+k}]
+=
+\frac{\operatorname{tr}(\Gamma_k)}{N}
+-
+\frac{\mathbf 1' \Gamma_k \mathbf 1}{N^2}
++
+\sigma_\mu^2.
+$$
+
+The paper finds strong momentum in diversified size and BM portfolios, but negative own autocorrelation and negative cross-serial correlations over intermediate horizons. The implication is that excess covariance among stocks, not pure firm-specific underreaction, plays a large role.
+
+## Approach (detailed)
+
+### 1. Replace decile-only momentum with the linear relative-strength portfolio
+
+Instead of using only winner and loser deciles, the paper forms the Lo-MacKinlay linear strategy. For asset `i`, the month-`t` weight is
+
+$$
+w_{i,t}=\frac{1}{N}\left(r_{i,t-1}^k-r_{m,t-1}^k\right),
+$$
+
+where:
+
+- `r_{i,t-1}^k` is asset `i`'s lagged `k`-month return,
+- `r_{m,t-1}^k` is the equal-weighted market's lagged `k`-month return,
+- `N` is the number of assets in the cross section.
+
+This strategy is zero-cost by construction and can be rescaled to invest `$1` long and `$1` short. Lewellen uses it because:
+
+- it can be applied cleanly to portfolios as well as stocks,
+- and its expected payoff maps directly into return-covariance decompositions.
+
+### 2. Test momentum in diversified portfolios, not just individual stocks
+
+The paper studies:
+
+- individual stocks,
+- 15 industry portfolios,
+- 5, 10, and 15 size portfolios,
+- 5 and 10 BM portfolios,
+- 9, 16, and 25 size/BM double-sorted portfolios.
+
+The sample is 1941-1999 for most tests and 1963-1999 where BM data are required. Returns are examined in both value-weighted and equal-weighted form.
+
+This is the empirical move that makes the paper important. Size and BM portfolios contain hundreds of stocks, so any momentum there is hard to call purely idiosyncratic.
+
+### 3. Show that momentum survives and often strengthens in portfolio sorts
+
+Using past 12-month returns as the formation variable, the paper measures profits up to 18 months after formation. The main finding is that momentum in:
+
+- size portfolios,
+- BM portfolios,
+- size/BM portfolios,
+
+is as strong as, and in some cases stronger than, momentum in individual stocks and industries.
+
+That means a satisfactory theory has to explain momentum in broad, diversified macro-style portfolios, not only in single names.
+
+### 4. Demonstrate that industry, size, and BM momentum are distinct
+
+Lewellen next benchmark-adjusts returns to test whether one source subsumes another:
+
+- stock momentum adjusted for industry or size/BM effects,
+- industry momentum adjusted for size/BM effects,
+- size and BM momentum adjusted for industry effects.
+
+The results show that these components remain economically important after such adjustments. So the paper rejects the simple view that one common component, such as industries alone, entirely drives the effect.
+
+### 5. Decompose expected momentum profit algebraically
+
+For the linear strategy, expected profit at horizon `k` is
+
+$$
+E[\pi_{t+k}]
+=
+\frac{\operatorname{tr}(\Gamma_k)}{N}
+-
+\frac{\mathbf 1' \Gamma_k \mathbf 1}{N^2}
++
+\sigma_\mu^2,
+$$
+
+where:
+
+- `\Gamma_k` is the covariance between lagged 12-month returns and future month-`k` returns,
+- `\operatorname{tr}(\Gamma_k)` is the sum of own autocovariances,
+- `\mathbf 1' \Gamma_k \mathbf 1` collects all own and cross terms,
+- `\sigma_\mu^2` is the cross-sectional variance of unconditional expected returns.
+
+Interpretation:
+
+- the first term rewards own-return continuation,
+- the second term captures cross-serial relations across assets,
+- the last term rewards sorting into high-mean versus low-mean assets.
+
+### 6. Show why "positive autocorrelation" is not the right summary
+
+Lewellen stresses that momentum is not identical to positive time-series autocorrelation. The same positive cross-sectional momentum payoff can be generated by:
+
+- positive own autocorrelation,
+- negative cross-serial covariance across assets,
+- or dispersion in unconditional means.
+
+The paper therefore studies the covariance structure directly rather than inferring the mechanism from profits alone.
+
+### 7. Examine actual autocorrelation and cross-serial patterns
+
+The empirical surprise is that industry, size, and BM portfolios are:
+
+- negatively autocorrelated,
+- negatively cross-serially correlated,
+
+over intermediate horizons.
+
+Lewellen estimates correlations between annual lagged returns and future monthly returns up to 18 months ahead. For industries, size, and BM portfolios alike, the own autocorrelation becomes increasingly negative out to roughly months 10-11, and the cross-serial effects are even more negative.
+
+This is the crucial empirical result. Momentum profits are positive even though own autocorrelation is negative, because cross-serial terms are sufficiently negative and because assets covary "too strongly."
+
+### 8. Re-express the strategy in asset-specific returns
+
+Define the market-adjusted or asset-specific return as
+
+$$
+s_{i,t}=r_{i,t}-r_{m,t}.
+$$
+
+Then the expected momentum profit can be written as
+
+$$
+E[\pi_t]
+=
+\frac{1}{N}\sum_i \operatorname{Cov}(s_{i,t-1},s_{i,t})
++
+\sigma_\mu^2.
+$$
+
+Lewellen is careful with this identity. It shows that momentum profits equal average autocovariance in asset-specific returns, but that identity alone does **not** identify the source of persistence. Asset-specific returns can be persistent because of underreaction, or because stocks covary too strongly with one another.
+
+### 9. Propose excess covariance as the deeper mechanism
+
+The paper develops two illustrative models in which momentum arises from excess covariance:
+
+- investors mistakenly treat news about one firm as informative about other firms, making prices move together too much;
+- time-varying market risk premia create common variation that induces too much comovement.
+
+In both cases:
+
+- portfolios can be negatively autocorrelated,
+- yet cross-sectional momentum profits remain positive.
+
+That is why the paper treats excess covariance, not simple own-return underreaction, as the central candidate explanation.
+
+### 10. Use factor models as a diagnostic
+
+Lewellen also shows that the Fama-French three-factor model absorbs much of the serial correlation in size and BM portfolios, though not all industry patterns. This is consistent with the idea that broad common factors, rather than firm-specific residual news alone, are responsible for a large share of the phenomenon.
+
+### 11. What a reader should implement
+
+A faithful implementation is:
+
+1. form the linear momentum strategy on stocks, industries, size portfolios, BM portfolios, and size/BM portfolios;
+2. compare raw and benchmark-adjusted profits to see which common components survive;
+3. compute the covariance decomposition using `\Gamma_k`;
+4. estimate own and cross-serial correlation profiles across future months;
+5. test whether a factor model absorbs those serial correlations;
+6. interpret any remaining momentum in light of excess covariance rather than defaulting to firm-specific underreaction.
+
+That is the full logic of the paper.
+
+## Domain of applicability
+
+- **Where it works well:** Researchers who want to know whether momentum is fundamentally stock-specific or can be generated by continuation in diversified common components.
+- **What is implementable:** Linear momentum portfolios, covariance decompositions, and serial-correlation diagnostics on portfolio returns.
+- **Main limitation:** The paper is more diagnostic than prescriptive; it tells you where momentum might come from, not how to engineer the highest-Sharpe implementation.
+- **Why the paper matters:** It is one of the clearest demonstrations that strong momentum can coexist with negative portfolio autocorrelation, which any serious theory must account for.

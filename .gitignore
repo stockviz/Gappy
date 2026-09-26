@@ -1,0 +1,17 @@
+# R / IDE state
+*.Rproj.user
+*.Rhistory
+*.RData
+*.Ruserdata
+*.positai
+
+# Serialised data / checkpoints
+*.rds
+*.rda
+*.rdata
+*.feather
+*.parquet
+
+# Tabular data
+*.csv
+*.tsv
