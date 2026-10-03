@@ -22,7 +22,7 @@ Each study has market-specific folders so data assumptions and results do not ge
 - `07-option-data-audit/`
   - `india/`, `us/`
 
-The first study is the only one being executed in this pass. The remaining folders are intentionally empty study shells with market-local scope; they are not claims that those studies have been run.
+The first and second studies have executed India and US arms (the first also includes crypto). Studies 03–07 remain empty shells and are not claims that those studies have run.
 
 ## House conventions
 

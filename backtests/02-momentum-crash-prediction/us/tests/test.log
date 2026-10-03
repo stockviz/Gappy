@@ -1,0 +1,38 @@
+  PASS month_end_dates returns last trading day per month
+  PASS end_of_month normalizes mid-month to last day
+  PASS end_of_month leap year February
+  PASS end_of_month non-leap February
+  PASS end_of_month December year wrap
+  PASS formation window start (M-13) for 2020-03
+  PASS formation window end   (M-2)  for 2020-03
+  PASS formation window start (M-13) for 2020-01
+  PASS formation window end   (M-2)  for 2020-01
+  PASS formation window start (M-13) for 2008-02
+  PASS formation window end   (M-2)  for 2008-02
+  PASS 12-2 momentum equals M-2 close / M-13 close - 1
+  PASS 12-2 momentum is NA when history is too short
+  PASS deciles have 10 levels
+  PASS decile 1 holds the lowest values
+  PASS decile bucket sizes are equal
+  PASS deciles skip non-finite and return NA for them
+  PASS deciles of 5 values are all assigned
+  PASS deciles are monotonic in value
+  PASS deciles of <2 finite values are all NA
+  PASS deciles of a single value are all NA
+  PASS weight turnover equals sum of absolute weight changes
+  PASS weight turnover is zero when unchanged
+  PASS rolling vol has NA warm-up
+  PASS rolling vol matches windowed sd*sqrt(252) at the end
+  PASS exposure is non-negative
+  PASS exposure capped at max_lev
+  PASS panic gate reduces exposure in bear states
+  PASS panic_p=0 and panic_p=0.5 agree in non-bear states
+  PASS 12-2 momentum split guard returns NA
+  PASS 12-2 momentum without guard returns a finite value
+  PASS fit returns finite sigma_bar
+  PASS fit panic_p is inside the grid
+  PASS fit grid has one row per grid point
+  PASS pre selector scores net returns including both turnover costs
+
+35 passed, 0 failed
+ALL HELPER TESTS PASSED
